@@ -33,3 +33,5 @@ towerEventSchema.virtual('creator', {
 //   ref: 'Ticket',
 //   justOne: true
 // })
+
+// TODO ticketCount (but on backburner)
