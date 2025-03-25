@@ -5,14 +5,14 @@ import { Pop } from '@/utils/Pop.js';
 
 
 defineProps({
-  eventProp: {type: TowerEvent, required: true}
+  eventProp: { type: TowerEvent, required: true }
 })
 
 async function viewCard(Event) {
   try {
     await towerEventService.viewCard(Event)
   }
-  catch (error){
+  catch (error) {
     Pop.error(error);
   }
 }
@@ -21,9 +21,11 @@ async function viewCard(Event) {
 
 
 <template>
-  <div @click="viewCard(eventProp)" class="card">
-card
-  </div>
+  <RouterLink :to="{ name: 'Event Page', params: { eventId: eventProp.id } }">
+    <div @click="viewCard(eventProp)" class="card">
+      card
+    </div>
+  </RouterLink>
 </template>
 
 
