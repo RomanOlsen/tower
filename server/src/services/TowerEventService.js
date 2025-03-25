@@ -1,12 +1,25 @@
 import { dbContext } from "../db/DbContext.js"
+import { Forbidden } from "../utils/Errors.js"
 
 class TowerEventService {
-  async editEvent(id, newEventData, user) { // refer to inspire lecture if lost
-    const event = await dbContext.TowerEvent.findById(id)
+  async cancelEvent(id, eventToCancel, user) {
+    const event = await this.getEventById(id)
     if (event.creatorId != user.id) {
-      return
+      throw new Forbidden(`You cant CANCEL someone elses event`)
     }
-    event.equals(newEventData)
+    event.isCanceled = true
+    await event.save()
+    return event
+  }
+  async editEvent(id, newEventData, user) { // refer to inspire lecture if lost
+    const event = await this.getEventById(id)
+    if (event.creatorId != user.id) {
+      throw new Forbidden(`You cant EDIT someone elses event`)
+    }
+    event.name = newEventData.name
+    event.description = newEventData.description
+    event.isCanceled = false // not !event.isCanceled ?
+
     await event.save()
 
     return event
