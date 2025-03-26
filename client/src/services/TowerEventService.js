@@ -23,9 +23,14 @@ class TowerEventService {
     const event = new TowerEvent(response.data)
     AppState.events.push(event) // ANCHOR  push and unshift both moving it to bottom???
   }
-  async viewCard(Event) {
-    AppState.activeEvent = Event
-    logger.log(Event)
+  async viewCard(EventID) {
+    // AppState.activeEvent = Event
+    // logger.log(Event)
+
+    const response = await api.get(`api/events/${EventID}`)
+    const event = new TowerEvent(response.data)
+    AppState.activeEvent = event
+    
   }
   async getEvents() {
     const response = await api.get('api/events')
