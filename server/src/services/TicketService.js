@@ -2,7 +2,7 @@ import { dbContext } from "../db/DbContext.js"
 
 class TicketService {
   async getMyTickets(userInfoID) {
-    const tickets = await dbContext.Ticket.find({ accountId: userInfoID }).populate('creator')
+    const tickets = await dbContext.Ticket.find({ accountId: userInfoID }).populate('event')
       //{ path: 'event', populate: {
       //   path: 'creator ticketCount',
 
