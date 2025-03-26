@@ -27,11 +27,12 @@ towerEventSchema.virtual('creator', {
   justOne: true
 })
 
-// towerEventSchema.virtual('ticketCount', {
-//   localField: 'capacity',
-//   foreignField: '_id',
-//   ref: 'Ticket',
-//   justOne: true
-// })
+towerEventSchema.virtual('ticketCount', {
+  localField: '_id',
+  foreignField: 'eventId',
+  ref: 'Ticket',
+  justOne: false,
+  count: true
+})
 
 // TODO ticketCount (but on backburner)
