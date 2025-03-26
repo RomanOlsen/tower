@@ -6,10 +6,15 @@ import { Ticket } from "@/models/Ticket.js"
 
 class TowerEventService {
   async getTicket(payload) {
+ 
     const response = await api.post('api/tickets', payload)
     logger.log(response.data)
     const ticket = new Ticket(response.data)
+    if (AppState.activeEvent.ticketCount >= AppState.activeEvent.capacity) {
+      return
+    }
     AppState.activeEventTickets.push(ticket)
+    AppState.activeEvent.ticketCount++
   }
 
   async cancelEvent(eventId) {
@@ -36,6 +41,8 @@ class TowerEventService {
     const response = await api.get(`api/events/${EventID}`)
     const event = new TowerEvent(response.data)
     AppState.activeEvent = event
+    logger.log(AppState.activeEvent);
+    
 // SECTION get tickets for page below
     const response2 = await api.get(`api/events/${EventID}/tickets`)
     const tickets = response2.data.map(pojo => new Ticket(pojo))
