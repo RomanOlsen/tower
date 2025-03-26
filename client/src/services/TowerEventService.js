@@ -3,7 +3,18 @@ import { api } from "./AxiosService.js"
 import { TowerEvent } from "@/models/TowerEvent.js"
 import { AppState } from "@/AppState.js"
 
-class TowerEventService{
+class TowerEventService {
+  changeCategory(category) {
+    AppState.activeCategory = category
+    console.log(AppState.activeCategory);
+    
+  }
+  async createEvent(eventData) {
+    const response = await api.post('api/events', eventData)
+    logger.log(response.data)
+    const event = new TowerEvent(response.data)
+    AppState.events.push(event) // ANCHOR  push and unshift both moving it to bottom???
+  }
   async viewCard(Event) {
     AppState.activeEvent = Event
     logger.log(Event)
