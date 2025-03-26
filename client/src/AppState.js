@@ -10,6 +10,8 @@ export const AppState = reactive({
   events: [],
     /** @type {import('./models/TowerEvent.js').TowerEvent} user info from the database*/
   activeEvent: null,
+    /** @type {import('./models/Ticket.js').Ticket[]} user info from the database*/
+  activeEventTickets: [],
   categories: [
     {name: 'concert', icon: 'mdi-microphone-variant'}, {name: 'convention', icon: 'mdi-account-group-outline'}, {name: 'sport', icon: 'mdi-soccer'}, {name: 'digital', icon: 'mdi-monitor'}],
   activeCategory: null

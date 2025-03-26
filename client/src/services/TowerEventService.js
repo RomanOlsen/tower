@@ -2,8 +2,15 @@ import { logger } from "@/utils/Logger.js"
 import { api } from "./AxiosService.js"
 import { TowerEvent } from "@/models/TowerEvent.js"
 import { AppState } from "@/AppState.js"
+import { Ticket } from "@/models/Ticket.js"
 
 class TowerEventService {
+  async getTicket(payload) {
+    const response = await api.post('api/tickets', payload)
+    logger.log(response.data)
+    const ticket = new Ticket(response.data)
+    AppState.activeEventTickets.push(ticket)
+  }
 
   async cancelEvent(eventId) {
     const response = await api.delete(`api/events/${eventId}`)
@@ -25,10 +32,14 @@ class TowerEventService {
     const event = new TowerEvent(response.data)
     AppState.events.push(event) // ANCHOR  push and unshift both moving it to bottom???
   }
-  async viewCard(EventID) {
+  async viewCard(EventID) { // NOTE gets event details AND tickets for the event
     const response = await api.get(`api/events/${EventID}`)
     const event = new TowerEvent(response.data)
     AppState.activeEvent = event
+// SECTION get tickets for page below
+    const response2 = await api.get(`api/events/${EventID}/tickets`)
+    const tickets = response2.data.map(pojo => new Ticket(pojo))
+    AppState.activeEventTickets = tickets
     
   }
   async getEvents() {
