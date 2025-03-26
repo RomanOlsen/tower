@@ -8,7 +8,7 @@ defineProps({
   eventProp: { type: TowerEvent, required: true }
 })
 
-async function viewCard(Event) {
+async function viewCard(Event) { // NOTE we might not need this and the @click 
   try {
     await towerEventService.viewCard(Event)
   }
@@ -23,7 +23,7 @@ async function viewCard(Event) {
 <template>
   <RouterLink :to="{ name: 'Event Page', params: { eventId: eventProp.id } }">
     <div @click="viewCard(eventProp)" class="card">
-      card
+      card {{ eventProp.name }}
     </div>
   </RouterLink>
 </template>

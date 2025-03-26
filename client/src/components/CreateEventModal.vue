@@ -49,8 +49,9 @@ async function createEvent() {
             <input v-model="eventData.startDate" type="date" required placeholder="Start date">
             <select v-model="eventData.type" id="eventCategory" required>
               <option selected disabled placeholder="Choose a category">Choose a category</option>
-              <option v-for="category in categories" :key="category.name" :value="category" required>{{ category }}</option>
-              <!-- unsure what :value does -->
+              <option v-for="category in categories" :key="category.name" :value="category.name" required>{{ category.name }}</option>
+              <!-- unsure what :value does --> 
+               <!-- UPDATE :value is whats part of the Payload! make sure its the category.name! -->
 
             </select>
 

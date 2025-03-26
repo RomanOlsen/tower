@@ -63,11 +63,11 @@ async function getEvents() {
     <div class="row">
       <div class="col-12">
         <div class="d-flex justify-content-evenly">
-          <div @click="changeCategory(null)" class="text-center mdi mdi-infinity">
+          <div @click="changeCategory(null)" class="text-center mdi mdi-infinity" role="button">
             <div>All</div>
           </div>
           <div v-for="category in categories" :key="category.name" class="text-center mdi" :class="category.icon"
-            @click="changeCategory(category)">
+            @click="changeCategory(category)" role="button">
             <div>{{ category.name }}</div>
           </div>
         </div>

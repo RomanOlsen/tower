@@ -4,9 +4,17 @@ import { TowerEvent } from "@/models/TowerEvent.js"
 import { AppState } from "@/AppState.js"
 
 class TowerEventService {
+
+  async cancelEvent(eventId) {
+    const response = await api.delete(`api/events/${eventId}`)
+    logger.log(response.data)
+    AppState.activeEvent.isCanceled = true
+    
+
+  }
   changeCategory(category) {
     AppState.activeCategory = category
-    console.log(AppState.activeCategory);
+    logger.log(AppState.activeCategory);
     
   }
   async createEvent(eventData) {
