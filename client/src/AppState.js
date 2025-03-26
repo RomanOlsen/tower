@@ -6,7 +6,9 @@ export const AppState = reactive({
   identity: null,
   /** @type {import('./models/Account.js').Account} user info from the database*/
   account: null,
+  /** @type {import('./models/TowerEvent.js').TowerEvent[]} user info from the database*/
   events: [],
+    /** @type {import('./models/TowerEvent.js').TowerEvent} user info from the database*/
   activeEvent: null,
   categories: [
     {name: 'concert', icon: 'mdi-microphone-variant'}, {name: 'convention', icon: 'mdi-account-group-outline'}, {name: 'sport', icon: 'mdi-soccer'}, {name: 'digital', icon: 'mdi-monitor'}],

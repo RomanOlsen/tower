@@ -8,7 +8,9 @@ class TowerEventService {
   async cancelEvent(eventId) {
     const response = await api.delete(`api/events/${eventId}`)
     logger.log(response.data)
-    AppState.activeEvent.isCanceled = true
+    AppState.activeEvent = new TowerEvent(response.data) // better than below? since its pulling whatevers on the back-end
+    // AppState.activeEvent.isCanceled = true 
+
     
 
   }
@@ -24,9 +26,6 @@ class TowerEventService {
     AppState.events.push(event) // ANCHOR  push and unshift both moving it to bottom???
   }
   async viewCard(EventID) {
-    // AppState.activeEvent = Event
-    // logger.log(Event)
-
     const response = await api.get(`api/events/${EventID}`)
     const event = new TowerEvent(response.data)
     AppState.activeEvent = event
