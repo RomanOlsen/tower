@@ -22,7 +22,7 @@ ticketSchema.virtual('profile', {
 
 ticketSchema.virtual('event', {
   localField: 'eventId',
-  foreignField: 'id',
+  foreignField: '_id', // i forgot the underscore....25 mins of pain
   ref: 'TowerEvent',
   justOne: true
 })
