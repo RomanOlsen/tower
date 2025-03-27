@@ -9,7 +9,8 @@ import { useRoute } from 'vue-router';
 const account = computed(() => AppState.account)
 const events = computed(() => AppState.events)
 const tickets = computed(() => AppState.tickets)
-const ticketedEvents = computed(()=> AppState.ticketedEvents)
+
+const category = computed(() => AppState.categories)
 // const route = useRoute()
 
 onMounted(() =>
@@ -69,9 +70,9 @@ async function getEventsForAccount() {
       </div>
     </div>
     <div class="row">
-      <div v-for="event in events" :key="event.id" class="col-1">
+      <div v-for="event in events" :key="event.id" class="col-4">
         <div class="card">
-          <img :src="event.coverImg" alt="" class="event-img">
+          <img :src="event.coverImg" alt="" class="MyEvent-img">
           {{ event.name }}
 
         </div>
@@ -80,11 +81,47 @@ async function getEventsForAccount() {
     </div>
     <div class="row">
       <h1 class="text-center">Your Tickets to Events</h1>
-      <div v-for="ticket in tickets" :key="ticket.id" class="col-1">
-        <div class="card">
-          <img :src="ticket.event.coverImg" alt="" class="event-img">
+      <div v-for="ticket in tickets" :key="ticket.id" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="card m-2">
+          <div class="text-center">
 
-          {{ ticket.event.capacity }}
+            <img :src="ticket.event.coverImg" alt="event image" class="event-img rounded">
+            <div>
+              <div class="d-flex justify-content-between align-items-center mx-3">
+                <div class="fs-5"> {{
+                  ticket.event.startDate.toLocaleString('en-US', { month: 'long' }) }}</div>
+                <div class="fs-1 fw-bold text-success"> {{ ticket.event.startDate.toLocaleString('en-US', {
+                  day:
+                    'numeric'
+                }) }} </div>
+
+                <div class="fs-5">{{ ticket.event.startDate.toLocaleTimeString('en-US', {
+                  hour: '2-digit',
+                  timeZone: 'MST'
+                }) }}</div>
+
+              </div>
+              <div class="fw-bold fs-3 text-center"> {{ ticket.event.name }}
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span v-if="ticket?.event.type == category[0].name" :class="'fs-1 mdi ' + category[0].icon"> <span
+                    class="fs-3 text-capitalize ms-2">{{ ticket.event.type }}</span>
+                </span>
+                <span v-if="ticket?.event.type == category[1].name" :class="'fs-1 mdi ' + category[1].icon">
+                  <span class="fs-3 text-capitalize ms-2">{{ ticket.event.type }}</span> </span>
+                <span v-if="ticket?.event.type == category[2].name" :class="'fs-1 mdi ' + category[2].icon">
+                  <span class="fs-3 text-capitalize ms-2">{{ ticket.event.type }}</span> </span>
+                <span v-if="ticket?.event.type == category[3].name" :class="'fs-1 mdi ' + category[3].icon">
+                  <span class="fs-3 text-capitalize ms-2">{{ ticket.event.type }}</span> </span>
+
+
+
+                <!-- <div> {{ ticket.event.description.substring(0, 25) }}... </div> -->
+                <button class="btn btn-outline-danger my-2 me-2">Unattend</button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -110,14 +147,22 @@ async function getEventsForAccount() {
   border-radius: 50%;
   aspect-ratio: 1/1;
   object-fit: cover;
-  
+
 }
-.event-img{
-  width: 100%;
-   height: 40dvh;
+
+.MyEvent-img {
+  width: 22%;
   aspect-ratio: 1/1;
   object-fit: cover;
 }
+
+.event-img {
+  width: 100%;
+  height: 20dvh;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+
 // .bg-transparentBlack{
-// background-color: rgba(0, 0, 0, 0.498);
-// }</style>
+// background-color: rgba(0, 0, 0, 0.498);</style>

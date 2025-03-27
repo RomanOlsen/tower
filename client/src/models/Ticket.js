@@ -17,7 +17,7 @@ constructor(data){
   this.event.isCanceled = data.event.isCanceled
   this.event.location = data.event.location
   this.event.name = data.event.name
-  this.event.startDate = data.event.startDate
+  this.event.startDate = new Date(data.event.startDate)
   this.event.type = data.event.type
   this.event.updatedAt = data.event.updatedAt
 
