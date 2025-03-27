@@ -2,7 +2,7 @@
 import { AppState } from '@/AppState.js';
 import { towerEventService } from '@/services/TowerEventService.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 
@@ -14,6 +14,9 @@ const comments = computed(() => AppState.activeEventComments)
 const route = useRoute()
 const eventId = route.params.eventId
 
+const commentData = ref({
+  body: ''
+})
 
 async function cancelEvent() {
   try {
@@ -28,6 +31,17 @@ async function getTicket() {
   try {
     const payload = { eventId: eventId }
     await towerEventService.getTicket(payload)
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
+
+async function postComment() {
+  try {
+
+    const payload = { body: commentData.value.body, creatorId: account.value.id, eventId: eventId }
+    await towerEventService.postComment(payload)
   }
   catch (error) {
     Pop.error(error);
@@ -91,7 +105,11 @@ async function viewCard() {
     </div>
     <div class="row">
       <div class="col-12">
-        <div class="d-flex">
+        <form @submit.prevent="postComment()">
+          <button class="btn btn-primary" type="submit">Write a comment</button>
+          <input v-model="commentData.body" type="text" required>
+        </form>
+        <div class="d-inline-block">
           <div v-for="comment in comments" :key="comment.id" class="card my-2">
 
 
@@ -109,6 +127,7 @@ async function viewCard() {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>

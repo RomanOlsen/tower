@@ -6,6 +6,13 @@ import { Ticket } from "@/models/Ticket.js"
 import { Comment } from "@/models/Comment.js"
 
 class TowerEventService {
+  async postComment(commentData) {
+    const response = await api.post(`api/comments`, commentData)
+    logger.log(response.data)
+    const comment = new Comment(response.data)
+    AppState.activeEventComments.push(comment)
+    
+  }
   async deleteEvent(eventID) {
     const response = await api.delete(`api/events/${eventID}`)
     const eventIndex = AppState.events.findIndex(event => event.id == eventID)
