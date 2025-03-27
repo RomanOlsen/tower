@@ -3,6 +3,7 @@ import BaseController from "../utils/BaseController.js";
 import { towerEventService } from "../services/TowerEventService.js";
 import { dbContext } from "../db/DbContext.js";
 import { ticketService } from "../services/TicketService.js";
+import { commentsService } from "../services/CommentsService.js";
 
 export class TowerEventsController extends BaseController {
   constructor() {
@@ -11,12 +12,22 @@ export class TowerEventsController extends BaseController {
       .get('', this.getEvents)
       .get('/:eventId', this.getEventById)
       .get('/:eventId/tickets', this.getEventTickets) 
+      .get('/:eventId/comments', this.getEventComments)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.postEvent)
       .put('/:eventId', this.editEvent)
       .delete('/:eventId', this.cancelEvent)
 
 
+  }
+  async getEventComments(request, response, next) {
+    try {
+      const eventID = request.params.eventId
+      const comments = await commentsService.getEventComments(eventID)
+      response.send(comments)
+    } catch (error) {
+      next(error)
+    }
   }
   async getEventTickets(request, response, next) {
     try {
