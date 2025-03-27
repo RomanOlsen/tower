@@ -1,4 +1,6 @@
-export class Account {
+// import { TowerEvent } from "./TowerEvent.js"
+
+export class Account{
   /**
    * @typedef AccountData
    * @property {string} id
@@ -9,6 +11,7 @@ export class Account {
    * @param {AccountData} data
    */
   constructor(data) {
+    // super()
     this.id = data.id
     this.email = data.email
     this.name = data.name
