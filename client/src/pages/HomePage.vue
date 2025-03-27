@@ -25,7 +25,7 @@ onMounted(() => {
   getEvents()
 })
 
-function changeCategory(category){
+function changeCategory(category) {
   towerEventService.changeCategory(category)
 }
 
@@ -43,12 +43,26 @@ async function getEvents() {
 </script>
 
 <template>
-  <div class="container">
-    <div class="row">
-      <div v-for="event in events" :key="event.id" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-        <EventCard :event-prop="event" class="text-decoration-none" /> 
+  <div class="container-fluid">
+    <div class="row homepageBg">
+      <div class="col-12 text-light text-center align-items-center d-flex justify-content-center">
+
+
+        <div>
+          <h1 class="bg-dark rounded p-2">Welcome to the Tower Event App!</h1>
+        </div>
       </div>
+
+
+      <div class="col-12 text-light text-center align-items-center d-flex justify-content-center">
+
+        <p class="bg-dark rounded p-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum deserunt fuga tenetur ut eius laboriosam consequatur porro nisi, culpa debitis.</p>
+      </div>
+
+
+
     </div>
+  
     <div class="row">
       <div class="col-6">
         Discover an Event (non functional)
@@ -70,12 +84,17 @@ async function getEvents() {
             @click="changeCategory(category)" role="button">
             <div>{{ category.name }}</div>
 
-          
+
 
           </div>
         </div>
       </div>
 
+    </div>
+    <div class="row">
+      <div v-for="event in events" :key="event.id" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+        <EventCard :event-prop="event" class="text-decoration-none" />
+      </div>
     </div>
   </div>
   <CreateEventModal />
@@ -85,4 +104,13 @@ async function getEvents() {
 // .noDeco{
 //   text-decoration: none;
 // }
+
+.homepageBg {
+  background-image: url(https://images.unsplash.com/photo-1612389930565-6975454dc7cc?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlb3BsZSUyMGV2ZW50fGVufDB8fDB8fHww);
+  height: 70dvh;
+  background-size: cover;
+  background-position: bottom;
+
+  // aspect-ratio: 2/1;
+}
 </style>

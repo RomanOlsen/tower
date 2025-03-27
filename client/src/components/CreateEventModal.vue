@@ -1,7 +1,9 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { router } from '@/router.js';
 import { towerEventService } from '@/services/TowerEventService.js';
 import { Pop } from '@/utils/Pop.js';
+import { Modal } from 'bootstrap/dist/js/bootstrap.bundle.js';
 import { ref } from 'vue';
 
 const categories = AppState.categories
@@ -19,7 +21,10 @@ const eventData = ref({
 
 async function createEvent() {
   try {
-    await towerEventService.createEvent(eventData.value)
+    const event = await towerEventService.createEvent(eventData.value)
+    Modal.getOrCreateInstance('#createEventModal').hide()
+
+    router.push({ name: 'Event Page', params: { eventId: event.id } })
   }
   catch (error) {
     Pop.error(error);
@@ -38,7 +43,7 @@ async function createEvent() {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form @submit="createEvent()">
+          <form @submit.prevent="createEvent()">
             <label for="name">Name
             </label>
             <input name="name" v-model="eventData.name" type="text" minlength="3" maxlength="50" required placeholder="Name">

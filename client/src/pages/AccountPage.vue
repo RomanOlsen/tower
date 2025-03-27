@@ -91,6 +91,7 @@ async function deleteEvent(eventID) {
 
     <div class="row">
       <h1 class="text-center">Your Tickets to Events</h1>
+      <div v-if="tickets.length == 0" class="text-center">You have no tickets</div>
       <div v-for="ticket in tickets" :key="ticket.id" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
         <div class="card m-2">
           <div class="text-center">
@@ -137,6 +138,7 @@ async function deleteEvent(eventID) {
     </div>
     <div class="row">
       <h1 class="text-center my-5">Events You Created</h1>
+      <div v-if="events.length == 0" class="text-center">You have no events</div>
       <div v-for="event in events" :key="event.id" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
 
         <div class="card m-2">
@@ -174,7 +176,11 @@ async function deleteEvent(eventID) {
 
 
 
-                <button @click="deleteEvent(event.id)" class="btn btn-outline-danger">Cancel Event</button>
+                  <!-- <div v-if="event.isCanceled == false && event.ticketCount >= event.capacity" class="fs-3 fw-bold text-primary"> {{ event.ticketCount }} SOLD OUT
+                  </div> -->
+                <button v-if="event.isCanceled == false" @click="deleteEvent(event.id)" class="btn btn-outline-danger">Cancel Event</button>
+                <div v-else class="fw-bold fs-3 text-danger">CANCELED</div>
+
               </div>
             </div>
           </div>
@@ -225,5 +231,4 @@ async function deleteEvent(eventID) {
 
 
 // .bg-transparentBlack{
-// background-color: rgba(0, 0, 0, 0.498);
-</style>
+// background-color: rgba(0, 0, 0, 0.498);</style>

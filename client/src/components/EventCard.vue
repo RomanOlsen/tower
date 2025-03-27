@@ -30,51 +30,55 @@ const category = computed(() => AppState.categories)
 
 
 
-<div class="card m-2">
-  <div class="text-center">
+    <div class="card m-2">
+      <div class="text-center">
 
-    <img :src="eventProp.coverImg" alt="event image" class="event-img rounded">
-    <div>
-      <div class="d-flex justify-content-between align-items-center mx-3">
-        <div class="fs-5"> {{
-          eventProp.startDate.toLocaleString('en-US', { month: 'long' }) }}</div>
-        <div class="fs-1 fw-bold text-success"> {{ eventProp.startDate.toLocaleString('en-US', {
-          day:
-            'numeric'
-        }) }} </div>
+        <img :src="eventProp.coverImg" alt="event image" class="event-img rounded">
+        <div>
+          <div class="d-flex justify-content-between align-items-center mx-3">
+            <div class="fs-5"> {{
+              eventProp.startDate.toLocaleString('en-US', { month: 'long' }) }}</div>
+            <div class="fs-1 fw-bold text-success"> {{ eventProp.startDate.toLocaleString('en-US', {
+              day:
+                'numeric'
+            }) }} </div>
 
-        <div class="fs-5">{{ eventProp.startDate.toLocaleTimeString('en-US', {
-          hour: '2-digit',
-          timeZone: 'MST'
-        }) }}</div>
+            <div class="fs-5">{{ eventProp.startDate.toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              timeZone: 'MST'
+            }) }}</div>
 
-      </div>
-      <div class="fw-bold fs-3 text-center"> {{ eventProp.name }}
-      </div>
-  
-      <div class="text-center"> {{ eventProp.location }}
-      </div>
-      <div class="d-flex justify-content-between align-items-center mx-2 mb-1">
-        <span v-if="eventProp.type == category[0].name" :class="'fs-2 mdi ' + category[0].icon"> <span
-            class="fs-4 text-capitalize ms-2">{{ eventProp.type }}</span>
-        </span>
-        <span v-if="eventProp.type == category[1].name" :class="'fs-2 mdi ' + category[1].icon">
-          <span class="fs-4 text-capitalize ms-2">{{ eventProp.type }}</span> </span>
-        <span v-if="eventProp.type == category[2].name" :class="'fs-2 mdi ' + category[2].icon">
-          <span class="fs-4 text-capitalize ms-2">{{ eventProp.type }}</span> </span>
-        <span v-if="eventProp.type == category[3].name" :class="'fs-2 mdi ' + category[3].icon">
-          <span class="fs-4 text-capitalize ms-2">{{ eventProp.type }}</span> </span>
-
-
-          <div class="fs-5 text-center"> {{ eventProp.ticketCount }} attending
+          </div>
+          <div class="fw-bold fs-3 text-center"> {{ eventProp.name }}
           </div>
 
-        <!-- <button @click="deleteEvent(eventProp.id)" class="btn btn-outline-danger">Cancel Event</button> -->
-      </div>
-    </div>
-  </div>
+          <div class="text-center"> {{ eventProp.location }}
+          </div>
+          <div class="d-flex justify-content-between align-items-center mx-2 mb-1">
+            <span v-if="eventProp.type == category[0].name" :class="'fs-2 mdi ' + category[0].icon"> <span
+                class="fs-4 text-capitalize ms-2">{{ eventProp.type }}</span>
+            </span>
+            <span v-if="eventProp.type == category[1].name" :class="'fs-2 mdi ' + category[1].icon">
+              <span class="fs-4 text-capitalize ms-2">{{ eventProp.type }}</span> </span>
+            <span v-if="eventProp.type == category[2].name" :class="'fs-2 mdi ' + category[2].icon">
+              <span class="fs-4 text-capitalize ms-2">{{ eventProp.type }}</span> </span>
+            <span v-if="eventProp.type == category[3].name" :class="'fs-2 mdi ' + category[3].icon">
+              <span class="fs-4 text-capitalize ms-2">{{ eventProp.type }}</span> </span>
 
-</div>
+
+            <div v-if="eventProp.isCanceled == false && eventProp.ticketCount >= eventProp.capacity" class="fs-3 fw-bold text-primary"> SOLD OUT
+            </div>
+            <div v-else-if="eventProp.isCanceled == false" class="fs-5 text-center"> {{ eventProp.ticketCount }}/{{
+              eventProp.capacity }} attending
+            </div>
+            <div v-else class="fw-bold fs-3 text-danger">CANCELED</div>
+
+            <!-- <button @click="deleteEvent(eventProp.id)" class="btn btn-outline-danger">Cancel Event</button> -->
+          </div>
+        </div>
+      </div>
+
+    </div>
 
 
 

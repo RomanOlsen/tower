@@ -19,11 +19,13 @@ class TowerEventService {
     AppState.activeEventComments.push(comment)
     
   }
-  async deleteEvent(eventID) {
+  async deleteEvent(eventID) { // cancel MY event
     const response = await api.delete(`api/events/${eventID}`)
     const eventIndex = AppState.events.findIndex(event => event.id == eventID)
     logger.log(eventIndex)
-    AppState.events.splice(eventIndex, 1)
+    AppState.events[eventIndex].isCanceled = true
+    // AppState.events.splice(eventIndex, 1)
+    
 
   }
   async deleteTicket(ticketID) {
@@ -63,6 +65,7 @@ class TowerEventService {
     logger.log(response.data)
     const event = new TowerEvent(response.data)
     AppState.events.push(event) // ANCHOR  push and unshift both moving it to bottom???
+    return event
   }
   async viewCard(EventID) { // NOTE gets event details AND tickets for the event
     const response = await api.get(`api/events/${EventID}`)
@@ -80,6 +83,8 @@ class TowerEventService {
     const response3 = await api.get(`api/events/${EventID}/comments`)
     const comments = response3.data.map(pojo => new Comment(pojo))
     AppState.activeEventComments = comments
+
+   
     
   }
   async getEvents() {
