@@ -10,6 +10,7 @@ const event = computed(() => AppState.activeEvent)
 const tickets = computed(() => AppState.activeEventTickets)
 const account = computed(() => AppState.account)
 const yourTickets = computed(() => tickets.value.some(ticket => ticket.accountId == account.value?.id))
+const comments = computed(() => AppState.activeEventComments)
 const route = useRoute()
 const eventId = route.params.eventId
 
@@ -88,9 +89,40 @@ async function viewCard() {
         <button v-if="!event.isCanceled" @click="cancelEvent()" class="btn btn-outline-dark"> Cancel event </button>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex">
+          <div v-for="comment in comments" :key="comment.id" class="card my-2">
+
+
+            <div class="card-body d-flex align-items-center gap-4">
+              <img :src="comment.creator.picture" class="profile-img" alt="">
+              <div>
+                <div class="fw-bold fs-4">
+                  {{ comment.creator.name }}
+                </div>
+                <div>
+                  {{ comment.body }}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.profile-img {
+  // max-width: 100px;
+  width: 5rem;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+
+}
+</style>

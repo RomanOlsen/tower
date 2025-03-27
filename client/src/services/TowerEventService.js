@@ -3,8 +3,22 @@ import { api } from "./AxiosService.js"
 import { TowerEvent } from "@/models/TowerEvent.js"
 import { AppState } from "@/AppState.js"
 import { Ticket } from "@/models/Ticket.js"
+import { Comment } from "@/models/Comment.js"
 
 class TowerEventService {
+  async deleteEvent(eventID) {
+    const response = await api.delete(`api/events/${eventID}`)
+    const eventIndex = AppState.events.findIndex(event => event.id == eventID)
+    logger.log(eventIndex)
+    AppState.events.splice(eventIndex, 1)
+
+  }
+  async deleteTicket(ticketID) {
+    const response = await api.delete(`api/tickets/${ticketID}`)
+    const ticketIndex = AppState.tickets.findIndex(ticket => ticket.id == ticketID)
+    logger.log(ticketIndex)
+    AppState.tickets.splice(ticketIndex, 1)
+  }
   async getTicket(payload) {
  
     const response = await api.post('api/tickets', payload)
@@ -47,6 +61,12 @@ class TowerEventService {
     const response2 = await api.get(`api/events/${EventID}/tickets`)
     const tickets = response2.data.map(pojo => new Ticket(pojo))
     AppState.activeEventTickets = tickets
+
+// SECTION get comments for page
+
+    const response3 = await api.get(`api/events/${EventID}/comments`)
+    const comments = response3.data.map(pojo => new Comment(pojo))
+    AppState.activeEventComments = comments
     
   }
   async getEvents() {
