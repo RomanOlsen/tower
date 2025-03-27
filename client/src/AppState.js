@@ -15,6 +15,7 @@ export const AppState = reactive({
   activeEvent: null,
     /** @type {import('./models/Ticket.js').Ticket[]} user info from the database*/
   activeEventTickets: [],
+  ticketedEvents: [],
   categories: [
     {name: 'concert', icon: 'mdi-microphone-variant'}, {name: 'convention', icon: 'mdi-account-group-outline'}, {name: 'sport', icon: 'mdi-soccer'}, {name: 'digital', icon: 'mdi-monitor'}],
   activeCategory: null

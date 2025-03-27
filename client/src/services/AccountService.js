@@ -22,6 +22,11 @@ class AccountService {
      logger.log(response2.data)
       const tickets = response2.data.map(pojo => new Ticket(pojo))
       AppState.tickets = tickets
+
+      // SECTION events with matching tickets
+      // const ticketedEvents = AppState.events.filter(event => event.id == AppState.tickets[1].eventId)
+      // logger.log(ticketedEvents)
+
      
 
 
