@@ -1,5 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
-import { Forbidden } from "../utils/Errors.js"
+import { Conflict, Forbidden } from "../utils/Errors.js"
 
 class TowerEventService {
   async cancelEvent(id, eventToCancel, user) {
@@ -15,6 +15,10 @@ class TowerEventService {
     const event = await this.getEventById(id)
     if (event.creatorId != user.id) {
       throw new Forbidden(`You cant EDIT someone elses event`)
+    }
+    if (event.isCanceled == true) {
+      throw new Error("This event has been canceled and cannot be edited. Error 409 conflict");
+
     }
     event.name = newEventData.name
     event.description = newEventData.description
@@ -42,6 +46,10 @@ class TowerEventService {
     await event.populate('creator')
     await event.populate('ticketCount')
     //  await event.populate('ticketCount')
+    if (event == null) {
+      throw new Error("Nice try, but that data isnt valid");
+
+    }
     return event
 
 

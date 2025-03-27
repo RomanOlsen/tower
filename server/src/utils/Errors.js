@@ -1,3 +1,9 @@
+export class Conflict extends Error {
+  constructor(message = 'Not Found') {
+    super(message)
+    this.status = 409
+  }
+}
 export class NotFound extends Error {
   constructor(message = 'Not Found') {
     super(message)
