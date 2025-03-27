@@ -88,7 +88,7 @@ async function viewCard() {
 
           <h1 v-if="event.ticketCount >= event.capacity" class="text-primary">SOLD OUT</h1>
           <div v-else class="fs-5 text-center"> {{ event.ticketCount }}/{{
-            event.capacity }} attending | 
+            event.capacity }} attending |
             <span>{{ event.capacity - event.ticketCount }} Spots Left</span>
           </div>
 
@@ -140,7 +140,7 @@ async function viewCard() {
         <hr>
       </div>
     </div>
-    <div v-if="!event.isCanceled && account.id == event.creatorId" class="row">
+    <div v-if="account && !event.isCanceled && account.id == event.creatorId" class="row">
       <div class="col-12 text-center">
 
         <button v-if="!event.isCanceled" @click="cancelEvent()" class="btn btn-outline-dark"> Cancel event </button>

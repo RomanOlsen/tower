@@ -21,6 +21,7 @@ constructor(data){
   this.event.type = data.event.type
   this.event.updatedAt = data.event.updatedAt
 
+  // @ts-ignore
   this.profile = data.profile
   
 }
