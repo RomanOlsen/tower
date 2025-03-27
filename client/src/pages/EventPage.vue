@@ -48,6 +48,16 @@ async function postComment() {
   }
 }
 
+async function deleteComment(commentID) {
+  try {
+
+    await towerEventService.deleteComment(commentID)
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
+
 onMounted(() =>
   viewCard()
 )
@@ -124,6 +134,9 @@ async function viewCard() {
                 </div>
               </div>
 
+            </div>
+            <div class="text-end mb-1 me-1">
+              <button @click="deleteComment(comment.id)" class="btn btn-danger">Delete</button>
             </div>
           </div>
         </div>
