@@ -200,7 +200,7 @@ async function deleteEvent(eventID) {
 
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .profile-img {
   // max-width: 100px;
   width: 7rem;
@@ -225,4 +225,5 @@ async function deleteEvent(eventID) {
 
 
 // .bg-transparentBlack{
-// background-color: rgba(0, 0, 0, 0.498);</style>
+// background-color: rgba(0, 0, 0, 0.498);
+</style>

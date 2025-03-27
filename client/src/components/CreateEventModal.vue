@@ -39,7 +39,9 @@ async function createEvent() {
         </div>
         <div class="modal-body">
           <form @submit="createEvent()">
-            <input v-model="eventData.name" type="text" minlength="3" maxlength="50" required placeholder="Name">
+            <label for="name">Name
+            </label>
+            <input name="name" v-model="eventData.name" type="text" minlength="3" maxlength="50" required placeholder="Name">
             <input v-model="eventData.description" type="text" minlength="15" maxlength="1000" required
               placeholder="Description">
             <input v-model="eventData.coverImg" type="url" required placeholder="Cover Image">
@@ -49,9 +51,10 @@ async function createEvent() {
             <input v-model="eventData.startDate" type="date" required placeholder="Start date">
             <select v-model="eventData.type" id="eventCategory" required>
               <option selected disabled placeholder="Choose a category">Choose a category</option>
-              <option v-for="category in categories" :key="category.name" :value="category.name" required>{{ category.name }}</option>
-              <!-- unsure what :value does --> 
-               <!-- UPDATE :value is whats part of the Payload! make sure its the category.name! -->
+              <option v-for="category in categories" :key="category.name" :value="category.name" required>{{
+                category.name }}</option>
+              <!-- unsure what :value does -->
+              <!-- UPDATE :value is whats part of the Payload! make sure its the category.name! -->
 
             </select>
 

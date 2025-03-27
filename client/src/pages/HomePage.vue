@@ -45,8 +45,8 @@ async function getEvents() {
 <template>
   <div class="container">
     <div class="row">
-      <div v-for="event in events" :key="event.id" class="col-6">
-        <EventCard :event-prop="event" />
+      <div v-for="event in events" :key="event.id" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+        <EventCard :event-prop="event" class="text-decoration-none" /> 
       </div>
     </div>
     <div class="row">
@@ -69,6 +69,9 @@ async function getEvents() {
           <div v-for="category in categories" :key="category.name" class="text-center mdi" :class="category.icon"
             @click="changeCategory(category)" role="button">
             <div>{{ category.name }}</div>
+
+          
+
           </div>
         </div>
       </div>
@@ -78,4 +81,8 @@ async function getEvents() {
   <CreateEventModal />
 </template>
 
-<style scoped lang="scss"></style>
+<style lang="scss">
+// .noDeco{
+//   text-decoration: none;
+// }
+</style>
