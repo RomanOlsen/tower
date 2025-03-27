@@ -20,8 +20,8 @@ watch(theme, () => {
   <nav class="navbar navbar-expand-md bg-codeworks border-bottom border-vue">
     <div class="container gap-2">
       <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-center text-light">
-        <img class="navbar-brand" alt="logo" src="/img/cw-logo.png" height="45" />
-        <b class="fs-5">Tower - EventBrite but Better</b>
+        <img class="navbar-brand rounded" alt="logo" src="https://www.firewatchgame.com/images/badge.png" height="45" />
+        <b class="fs-5">TowerBrite</b>
       </RouterLink>
       <!-- collapse button -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-links"
@@ -32,7 +32,7 @@ watch(theme, () => {
       <div class="collapse navbar-collapse " id="navbar-links">
         <ul class="navbar-nav">
           <li>
-            <RouterLink :to="{ name: 'Account' }" class="btn text-green selectable">
+            <RouterLink :to="{ name: 'Account' }" class="btn text-vue selectable">
               My Account
             </RouterLink>
           </li>

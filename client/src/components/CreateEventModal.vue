@@ -44,30 +44,58 @@ async function createEvent() {
         </div>
         <div class="modal-body">
           <form @submit.prevent="createEvent()">
-            <label for="name">Name
-            </label>
-            <input name="name" v-model="eventData.name" type="text" minlength="3" maxlength="50" required placeholder="Name">
-            <input v-model="eventData.description" type="text" minlength="15" maxlength="1000" required
+            <div class="d-flex align-items-center justify-content-between my-1">
+              <label for="name">Name
+              </label>
+              <input name="name" v-model="eventData.name" type="text" minlength="3" maxlength="50" required placeholder="Name">
+            </div>
+            <div class="d-flex align-items-center justify-content-between my-1">
+              <label for="description">Description
+              </label>
+              <input v-model="eventData.description" type="text" minlength="15" maxlength="1000" required
               placeholder="Description">
-            <input v-model="eventData.coverImg" type="url" required placeholder="Cover Image">
-            <input v-model="eventData.location" type="text" minlength="1" maxlength="500" required
-              placeholder="Location">
-            <input v-model="eventData.capacity" type="number" min="1" max="5000" required placeholder="Capacity">
-            <input v-model="eventData.startDate" type="date" required placeholder="Start date">
-            <select v-model="eventData.type" id="eventCategory" required>
+            </div>
+            <div class="d-flex align-items-center justify-content-between my-1">
+              <label for="Cover Image">Cover Image
+              </label>
+              <input v-model="eventData.coverImg" type="url" required placeholder="Cover Image">
+            </div>
+            <div class="d-flex align-items-center justify-content-between my-1">
+              <label for="Location">Location
+              </label>
+              <input v-model="eventData.location" type="text" minlength="1" maxlength="500" required
+                placeholder="Location">
+            </div>
+            <div class="d-flex align-items-center justify-content-between my-1">
+              <label for="Capacity">Capacity
+              </label>
+              <input v-model="eventData.capacity" type="number" min="1" max="5000" required placeholder="Capacity">
+            </div>
+            <div class="d-flex align-items-center justify-content-between my-1">
+              <label for="Start date">Start date
+              </label>
+              <input v-model="eventData.startDate" type="date" required placeholder="Start date">
+            </div>
+            <div class="d-flex align-items-center justify-content-between my-1">
+              <label for="Category">Category
+              </label>
+              <select v-model="eventData.type" id="eventCategory" required>
               <option selected disabled placeholder="Choose a category">Choose a category</option>
               <option v-for="category in categories" :key="category.name" :value="category.name" required>{{
                 category.name }}</option>
+          </select>
+            </div>
               <!-- unsure what :value does -->
               <!-- UPDATE :value is whats part of the Payload! make sure its the category.name! -->
 
-            </select>
 
 
+            <div class="text-end">
 
-            <button class="btn btn-outline-dark" type="submit">
-              Create Event
-            </button>
+              <button class="btn btn-outline-dark" type="submit">
+                Create Event
+              </button>
+            </div>
           </form>
         </div>
 
