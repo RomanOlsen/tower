@@ -12,6 +12,7 @@ const account = computed(() => AppState.account)
 const yourTickets = computed(() => tickets.value.some(ticket => ticket.accountId == account.value?.id))
 const comments = computed(() => AppState.activeEventComments)
 const route = useRoute()
+const category = computed(() => AppState.categories)
 const eventId = route.params.eventId
 
 const commentData = ref({
@@ -79,46 +80,84 @@ async function viewCard() {
   <div class="container" v-if="event">
     <div class="row">
       <div class="col-12">
-        <img :src="event.coverImg" alt="Event picture">
+        <img :src="event.coverImg" alt="Event picture" class="event-image">
         <h1 v-if="event.isCanceled" class="fw-bold text-danger">Canceled</h1>
-        <div v-else>
-          <h1 v-if="yourTickets" class="text-success">You are attending</h1>
-          <h1 v-else>You are not attending</h1>
-          <h1 v-if="event.ticketCount >= event.capacity">SOLD OUT {{ event.ticketCount }} >= {{ event.capacity }}</h1>
+        <div v-else class="d-flex justify-content-evenly align-items-center">
+          <h1 v-if="yourTickets" class="text-success">You are attending this event!</h1>
+          <h2 v-else>You are not attending this event.</h2>
+
+          <h1 v-if="event.ticketCount >= event.capacity" class="text-primary">SOLD OUT</h1>
+          <div v-else class="fs-5 text-center"> {{ event.ticketCount }}/{{
+            event.capacity }} attending | 
+            <span>{{ event.capacity - event.ticketCount }} Spots Left</span>
+          </div>
+
         </div>
 
 
 
 
+        <hr>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <h1>{{ event.name }}</h1>
+        <div class="d-flex justify-content-between">
+
+          <h1>{{ event.name }}</h1>
+
+          <span v-if="event.type == category[0].name" :class="'fs-2 mdi ' + category[0].icon"> <span
+              class="fs-4 text-capitalize ms-2">{{ event.type }}</span>
+          </span>
+          <span v-if="event.type == category[1].name" :class="'fs-2 mdi ' + category[1].icon">
+            <span class="fs-4 text-capitalize ms-2">{{ event.type }}</span> </span>
+          <span v-if="event.type == category[2].name" :class="'fs-2 mdi ' + category[2].icon">
+            <span class="fs-4 text-capitalize ms-2">{{ event.type }}</span> </span>
+          <span v-if="event.type == category[3].name" :class="'fs-2 mdi ' + category[3].icon">
+            <span class="fs-4 text-capitalize ms-2">{{ event.type }}</span> </span>
+        </div>
+
+        <h2>By {{ event.creator.name }}</h2>
         <p>{{ event.description }}</p>
+
+        <h3>Starts on: {{ event.startDate.toLocaleString() }}</h3>
+        <h3>Located: {{ event.location }}</h3>
+        <hr>
         <!-- TODO add the fine details and style Later towards the end. -->
-        <button v-if="!event.isCanceled" @click="getTicket()" class="btn btn-outline-dark"
+        <button v-if="!event.isCanceled && account" @click="getTicket()" class="btn btn-outline-dark"
           :disabled="event.ticketCount >= event.capacity">Grab a Ticket</button>
-        <div>Tickets: {{ event.ticketCount }}</div>
-        <div v-for="ticket in tickets" :key="ticket.id">Ticket for {{ ticket.accountId }}
-          <div v-if="account && ticket.accountId == account.id">You are attending</div>
+        <div v-if="account && !event.isCanceled">Tickets: {{ event.ticketCount }}</div>
+        <div class="card" v-for="ticket in tickets" :key="ticket.id">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="fw-bold m-2">
+              <img :src="ticket.profile.picture" alt="" class="ticket-image">
+              <span class="ms-2">{{ ticket.profile.name }}</span>
+            </div>
+
+            <div v-if="account && ticket.accountId == account.id">This is yours!</div>
+          </div>
         </div>
-
+        <hr>
       </div>
-
     </div>
-    <div class="row">
-      <div class="col-12">
+    <div v-if="!event.isCanceled && account.id == event.creatorId" class="row">
+      <div class="col-12 text-center">
 
         <button v-if="!event.isCanceled" @click="cancelEvent()" class="btn btn-outline-dark"> Cancel event </button>
       </div>
+      <hr>
     </div>
     <div class="row">
       <div class="col-12">
-        <form @submit.prevent="postComment()">
-          <button class="btn btn-primary" type="submit">Write a comment</button>
-          <input v-model="commentData.body" type="text" required>
+
+        <form v-if="account && !event.isCanceled" @submit.prevent="postComment()" class="text-center">
+          <div class="mb-2">
+
+            <button class="btn btn-primary text-light" type="submit">Write a comment</button>
+          </div>
+          <input class="comment-box" v-model="commentData.body" type="text" required>
         </form>
+
         <div class="d-inline-block">
           <div v-for="comment in comments" :key="comment.id" class="card my-2">
 
@@ -156,5 +195,25 @@ async function viewCard() {
   aspect-ratio: 1/1;
   object-fit: cover;
 
+}
+
+.event-image {
+
+
+  width: 100%;
+  height: 70dvh;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.ticket-image {
+  width: 3rem;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.comment-box {
+  width: 100%;
 }
 </style>

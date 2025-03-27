@@ -56,31 +56,38 @@ async function getEvents() {
 
       <div class="col-12 text-light text-center align-items-center d-flex justify-content-center">
 
-        <p class="bg-dark rounded p-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum deserunt fuga tenetur ut eius laboriosam consequatur porro nisi, culpa debitis.</p>
+        <p class="bg-dark rounded p-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum deserunt fuga
+          tenetur ut eius laboriosam consequatur porro nisi, culpa debitis.</p>
       </div>
 
 
 
     </div>
-  
+
     <div class="row">
-      <div class="col-6">
-        Discover an Event (non functional)
-      </div>
-      <div v-if="account" class="col-6">
-        <div class="p-4 fs-3 fw-bold text-center rounded mb-2" role="button" title="Create new album"
-          data-bs-toggle="modal" data-bs-target="#createEventModal">
-          Create Event
+      <div class="col-12">
+        <div class="d-flex justify-content-around align-items-center">
+          <div class="fw-bold fs-4">Discover some events!</div>
+          <div v-if="account">
+
+            <div class="bg-dark rounded text-light p-3 m-3 fw-bold" role="button" title="Create new album" data-bs-toggle="modal"
+              data-bs-target="#createEventModal">+ Create an Event</div>
+
+          </div>
         </div>
       </div>
+      <hr>
     </div>
     <div class="row">
       <div class="col-12">
+
         <div class="d-flex justify-content-evenly">
-          <div @click="changeCategory(null)" class="text-center mdi mdi-infinity" role="button">
+          <div @click="changeCategory(null)" class="text-center mdi mdi-infinity bg-dark text-light p-2 rounded"
+            role="button">
             <div>All</div>
           </div>
-          <div v-for="category in categories" :key="category.name" class="text-center mdi" :class="category.icon"
+          <div v-for="category in categories" :key="category.name"
+            class="text-center mdi bg-dark text-light p-2 rounded" :class="category.icon"
             @click="changeCategory(category)" role="button">
             <div>{{ category.name }}</div>
 
@@ -88,9 +95,10 @@ async function getEvents() {
 
           </div>
         </div>
+        <hr>
       </div>
-
     </div>
+
     <div class="row">
       <div v-for="event in events" :key="event.id" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
         <EventCard :event-prop="event" class="text-decoration-none" />
