@@ -101,49 +101,49 @@ async function deleteEvent(eventID) {
       <h1 class="text-center">Your Tickets to Events</h1>
       <div v-if="tickets.length == 0" class="text-center">You have no tickets</div>
       <div v-for="ticket in tickets" :key="ticket.id" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-        <RouterLink :to="{ name: 'Event Page', params: { eventId: ticket.eventId } }" class="text-decoration-none">
-          <div class="card m-2">
-            <div class="text-center">
+        <!-- <RouterLink :to="{ name: 'Event Page', params: { eventId: ticket.eventId } }" class="text-decoration-none"> -->
+        <div class="card m-2">
+          <div class="text-center">
 
-              <img :src="ticket.event.coverImg" alt="event image" class="event-img rounded">
-              <div>
-                <div class="d-flex justify-content-between align-items-center mx-3">
-                  <div class="fs-5"> {{
-                    ticket.event.startDate.toLocaleString('en-US', { month: 'long' }) }}</div>
-                  <div class="fs-1 fw-bold text-success"> {{ ticket.event.startDate.toLocaleString('en-US', {
-                    day:
-                      'numeric'
-                  }) }} </div>
+            <img :src="ticket.event.coverImg" alt="event image" class="event-img rounded">
+            <div>
+              <div class="d-flex justify-content-between align-items-center mx-3">
+                <div class="fs-5"> {{
+                  ticket.event.startDate.toLocaleString('en-US', { month: 'long' }) }}</div>
+                <div class="fs-1 fw-bold text-success"> {{ ticket.event.startDate.toLocaleString('en-US', {
+                  day:
+                    'numeric'
+                }) }} </div>
 
-                  <div class="fs-5">{{ ticket.event.startDate.toLocaleTimeString('en-US', {
-                    hour: '2-digit',
-                    timeZone: 'MST'
-                  }) }}</div>
+                <div class="fs-5">{{ ticket.event.startDate.toLocaleTimeString('en-US', {
+                  hour: '2-digit',
+                  timeZone: 'MST'
+                }) }}</div>
 
-                </div>
-                <div class="fw-bold fs-3 text-center"> {{ ticket.event.name }}
-                </div>
-                <div class="d-flex justify-content-between align-items-center mx-1 mb-1">
-                  <span v-if="ticket?.event.type == category[0].name" :class="'fs-2 mdi ' + category[0].icon"> <span
-                      class="fs-4 text-capitalize ms-2">{{ ticket.event.type }}</span>
-                  </span>
-                  <span v-if="ticket?.event.type == category[1].name" :class="'fs-2 mdi ' + category[1].icon">
-                    <span class="fs-4 text-capitalize ms-2">{{ ticket.event.type }}</span> </span>
-                  <span v-if="ticket?.event.type == category[2].name" :class="'fs-2 mdi ' + category[2].icon">
-                    <span class="fs-4 text-capitalize ms-2">{{ ticket.event.type }}</span> </span>
-                  <span v-if="ticket?.event.type == category[3].name" :class="'fs-2 mdi ' + category[3].icon">
-                    <span class="fs-4 text-capitalize ms-2">{{ ticket.event.type }}</span> </span>
+              </div>
+              <div class="fw-bold fs-3 text-center"> {{ ticket.event.name }}
+              </div>
+              <div class="d-flex justify-content-between align-items-center mx-1 mb-1">
+                <span v-if="ticket?.event.type == category[0].name" :class="'fs-2 mdi ' + category[0].icon"> <span
+                    class="fs-4 text-capitalize ms-2">{{ ticket.event.type }}</span>
+                </span>
+                <span v-if="ticket?.event.type == category[1].name" :class="'fs-2 mdi ' + category[1].icon">
+                  <span class="fs-4 text-capitalize ms-2">{{ ticket.event.type }}</span> </span>
+                <span v-if="ticket?.event.type == category[2].name" :class="'fs-2 mdi ' + category[2].icon">
+                  <span class="fs-4 text-capitalize ms-2">{{ ticket.event.type }}</span> </span>
+                <span v-if="ticket?.event.type == category[3].name" :class="'fs-2 mdi ' + category[3].icon">
+                  <span class="fs-4 text-capitalize ms-2">{{ ticket.event.type }}</span> </span>
 
 
 
-                  <!-- <div> {{ ticket.event.description.substring(0, 25) }}... </div> -->
-                  <button @click="deleteTicket(ticket.id)" class="btn btn-outline-danger">Unattend</button>
-                </div>
+                <!-- <div> {{ ticket.event.description.substring(0, 25) }}... </div> -->
+                <button @click="deleteTicket(ticket.id)" class="btn btn-outline-danger">Unattend</button>
               </div>
             </div>
-
           </div>
-        </RouterLink>
+
+        </div>
+        <!-- </RouterLink> -->
 
       </div>
     </div>
@@ -151,54 +151,54 @@ async function deleteEvent(eventID) {
       <h1 class="text-center my-5">Events You Created</h1>
       <div v-if="events.length == 0" class="text-center">You have no events</div>
       <div v-for="event in events" :key="event.id" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-        <RouterLink :to="{ name: 'Event Page', params: { eventId: event.id } }" class="text-decoration-none">
-          <div class="card m-2">
-            <div class="text-center">
+        <!-- <RouterLink :to="{ name: 'Event Page', params: { eventId: event.id } }" class="text-decoration-none"> -->
+        <div class="card m-2">
+          <div class="text-center">
 
-              <img :src="event.coverImg" alt="event image" class="event-img rounded">
-              <div>
-                <div class="d-flex justify-content-between align-items-center mx-3">
-                  <div class="fs-5"> {{
-                    event.startDate.toLocaleString('en-US', { month: 'long' }) }}</div>
-                  <div class="fs-1 fw-bold text-success"> {{ event.startDate.toLocaleString('en-US', {
-                    day:
-                      'numeric'
-                  }) }} </div>
+            <img :src="event.coverImg" alt="event image" class="event-img rounded">
+            <div>
+              <div class="d-flex justify-content-between align-items-center mx-3">
+                <div class="fs-5"> {{
+                  event.startDate.toLocaleString('en-US', { month: 'long' }) }}</div>
+                <div class="fs-1 fw-bold text-success"> {{ event.startDate.toLocaleString('en-US', {
+                  day:
+                    'numeric'
+                }) }} </div>
 
-                  <div class="fs-5">{{ event.startDate.toLocaleTimeString('en-US', {
-                    hour: '2-digit',
-                    timeZone: 'MST'
-                  }) }}</div>
+                <div class="fs-5">{{ event.startDate.toLocaleTimeString('en-US', {
+                  hour: '2-digit',
+                  timeZone: 'MST'
+                }) }}</div>
 
-                </div>
-                <div class="fw-bold fs-3 text-center"> {{ event.name }}
-                </div>
-                <div class="d-flex justify-content-between align-items-center mx-1 mb-1">
-                  <span v-if="event.type == category[0].name" :class="'fs-2 mdi ' + category[0].icon"> <span
-                      class="fs-4 text-capitalize ms-2">{{ event.type }}</span>
-                  </span>
-                  <span v-if="event.type == category[1].name" :class="'fs-2 mdi ' + category[1].icon">
-                    <span class="fs-4 text-capitalize ms-2">{{ event.type }}</span> </span>
-                  <span v-if="event.type == category[2].name" :class="'fs-2 mdi ' + category[2].icon">
-                    <span class="fs-4 text-capitalize ms-2">{{ event.type }}</span> </span>
-                  <span v-if="event.type == category[3].name" :class="'fs-2 mdi ' + category[3].icon">
-                    <span class="fs-4 text-capitalize ms-2">{{ event.type }}</span> </span>
-
-
+              </div>
+              <div class="fw-bold fs-3 text-center"> {{ event.name }}
+              </div>
+              <div class="d-flex justify-content-between align-items-center mx-1 mb-1">
+                <span v-if="event.type == category[0].name" :class="'fs-2 mdi ' + category[0].icon"> <span
+                    class="fs-4 text-capitalize ms-2">{{ event.type }}</span>
+                </span>
+                <span v-if="event.type == category[1].name" :class="'fs-2 mdi ' + category[1].icon">
+                  <span class="fs-4 text-capitalize ms-2">{{ event.type }}</span> </span>
+                <span v-if="event.type == category[2].name" :class="'fs-2 mdi ' + category[2].icon">
+                  <span class="fs-4 text-capitalize ms-2">{{ event.type }}</span> </span>
+                <span v-if="event.type == category[3].name" :class="'fs-2 mdi ' + category[3].icon">
+                  <span class="fs-4 text-capitalize ms-2">{{ event.type }}</span> </span>
 
 
-                  <!-- <div v-if="event.isCanceled == false && event.ticketCount >= event.capacity" class="fs-3 fw-bold text-primary"> {{ event.ticketCount }} SOLD OUT
+
+
+                <!-- <div v-if="event.isCanceled == false && event.ticketCount >= event.capacity" class="fs-3 fw-bold text-primary"> {{ event.ticketCount }} SOLD OUT
                   </div> -->
-                  <button v-if="event.isCanceled == false" @click="deleteEvent(event.id)"
-                    class="btn btn-outline-danger">Cancel Event</button>
-                  <div v-else class="fw-bold fs-3 text-danger">CANCELED</div>
+                <button v-if="event.isCanceled == false" @click="deleteEvent(event.id)"
+                  class="btn btn-outline-danger">Cancel Event</button>
+                <div v-else class="fw-bold fs-3 text-danger">CANCELED</div>
 
-                </div>
               </div>
             </div>
-
           </div>
-        </RouterLink>
+
+        </div>
+        <!-- </RouterLink> -->
       </div>
     </div>
 
