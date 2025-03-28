@@ -20,6 +20,10 @@ const commentData = ref({
 })
 
 async function cancelEvent() {
+  const confirmed = await Pop.confirm('Are you sure you want to cancel the event?')
+  if (!confirmed) {
+    return
+  }
   try {
     await towerEventService.cancelEvent(eventId)
   }
@@ -50,6 +54,10 @@ async function postComment() {
 }
 
 async function deleteComment(commentID) {
+  const confirmed = await Pop.confirm('Are you sure you want to delete this comment?')
+  if (!confirmed) {
+    return
+  }
   try {
 
     await towerEventService.deleteComment(commentID)
@@ -126,15 +134,15 @@ async function viewCard() {
         <!-- TODO add the fine details and style Later towards the end. -->
         <button v-if="!event.isCanceled && account" @click="getTicket()" class="btn btn-outline-dark"
           :disabled="event.ticketCount >= event.capacity">Grab a Ticket</button>
-        <div v-if="account && !event.isCanceled">Tickets: {{ event.ticketCount }}</div>
-        <div class="card" v-for="ticket in tickets" :key="ticket.id">
+        <div class="my-3" v-if="account && !event.isCanceled">Tickets: {{ event.ticketCount }}</div>
+        <div class="card mb-1" v-for="ticket in tickets" :key="ticket.id">
           <div class="d-flex justify-content-between align-items-center">
             <div class="fw-bold m-2">
               <img :src="ticket.profile.picture" alt="" class="ticket-image">
               <span class="ms-2">{{ ticket.profile.name }}</span>
             </div>
 
-            <div v-if="account && ticket.accountId == account.id">This is yours!</div>
+            <div v-if="account && ticket.accountId == account.id" class="me-2">This is yours!</div>
           </div>
         </div>
         <hr>
@@ -144,8 +152,8 @@ async function viewCard() {
       <div class="col-12 text-center">
 
         <button v-if="!event.isCanceled" @click="cancelEvent()" class="btn btn-outline-dark"> Cancel event </button>
+        <hr>
       </div>
-      <hr>
     </div>
     <div class="row">
       <div class="col-12">
